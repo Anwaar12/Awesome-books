@@ -6,7 +6,7 @@
 
 ## Live Demo
 
-> Description the project.
+> In this project we are making a book list in which user can add or remove books which can have title and author name by clicking on add button or remove button. We are using Html, Css and JavaScript DOM manipulation to make this project. We have used correct github flow and added proper linter files to make this project.
 
 >
 
@@ -35,9 +35,9 @@ Name :Anwaar Salam
 
 👤 **Author2**
 
-Name :Ahsan Ghazni
+Name :Amrit Mishra
 
--GitHub: @Ahsan Ghazni Khan
+-GitHub: @Amrit131
 
 ## 🤝 Contributing
 
