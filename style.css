@@ -166,7 +166,8 @@ button#book-add-button {
   display: none;
 }
 
-#title, #author {
+#title,
+#author {
   width: 30%;
   height: 2rem;
   background-color: #fff;
