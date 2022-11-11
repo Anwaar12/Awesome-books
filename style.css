@@ -1,6 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  max-width: 500px;
-  margin: 0 auto;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -9,11 +17,12 @@ li {
 }
 
 .book-selection {
-  max-width: 500px;
-  margin: 0 auto;
+  width: 100%;
+  margin-top: 0;
   height: 6vh;
   margin-top: 20px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   border: 5px solid #3e3e3e;
 }
@@ -50,7 +59,7 @@ li {
 }
 
 .book-container {
-  max-width: 500px;
+  width: 90%;
   margin: 0 auto;
   margin-top: 100px;
 }
@@ -61,6 +70,7 @@ li {
 
 .app-name {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .nobulls {
@@ -73,12 +83,23 @@ li {
 
 button#book-add-button {
   margin-top: 10px;
+  height: 2rem;
+  width: 10%;
+  background-color: #fff;
+  border: 3px solid black;
+  font-weight: 700;
+  font-size: 14px;
+  color: #3e3e3e;
 }
 
 .book-remove-button {
   position: absolute;
   top: 5px;
   right: 5px;
+  height: 1.5rem;
+  width: 5rem;
+  background-color: #fff;
+  border: 2px solid black;
 }
 
 .book-item {
@@ -108,9 +129,17 @@ button#book-add-button {
   text-align: center;
 }
 
+.contact p{
+  font-weight: 700;
+}
+
+.contact ul li {
+  font-weight: 700;
+}
+
 .footer {
-  max-width: 500px;
-  margin: 0 auto;
+  width: 99%;
+  margin: 20px 0 0 0;
   border: 5px solid #3e3e3e;
   height: 6vh;
   position: relative;
@@ -136,4 +165,14 @@ button#book-add-button {
 
 .hide {
   display: none;
+}
+
+#title, #author {
+  width: 30%;
+  height: 2rem;
+  background-color: #fff;
+  border: 3px solid black;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 3px;
 }
