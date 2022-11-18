@@ -1,111 +1,84 @@
-const storageKey = "awesomeBooks";
-const currentFormTitle = document.querySelector("#title");
-const currentFormAuthor = document.querySelector("#author");
-const currentFormBookAddButton = document.querySelector("#book-add-button");
-const linkAdd = document.querySelector("#link-add");
-const linkList = document.querySelector("#link-list");
-const linkContact = document.querySelector("#link-contact");
-const books = document.querySelector(".book-shelf");
-const form = document.querySelector(".form");
-const contact = document.querySelector(".contact");
-const dateTime = document.querySelector(".date-time");
-const timeNow = new Date();
+import {
+  removeBook,
+  addBook,
+  getBooksFromLs,
+  displayBooks,
+} from './modules/modules.js';
+import Book, { addBooksToLs } from './modules/Books.js';
+import { removeBookFromLs, insertElements } from './modules/removebooks.js';
+import { DateTime } from './modules/luxon.js';
 
-class BookShelf {
-  constructor() {
-    this.arrBooks = [];
+insertElements();
+
+const stringInput = '2021-06-10T02:20:50+00:00';
+const timeZone = 'America/Los_Angeles';
+const dateObject = new DateTime(stringInput).toLocaleString('en-US', {
+  timeZone,
+});
+document.querySelector('.times').innerHTML = dateObject;
+
+document.addEventListener('DOMContentLoaded', displayBooks);
+
+const titleField = document.querySelector('.title');
+const autherField = document.querySelector('.auther');
+const addBookBtn = document.querySelector('.add-book');
+const successMsg = document.querySelector('.book-added');
+const errorMsg = document.querySelector('.error-msg');
+
+addBookBtn.addEventListener('click', () => {
+  if (titleField.value !== '' && autherField.value !== '') {
+    const newBook = new Book(Date.now(), titleField.value, autherField.value);
+    addBook(newBook);
+
+    titleField.value = '';
+    autherField.value = '';
+
+    successMsg.classList.add('show-message');
+    window.setTimeout(() => {
+      successMsg.classList.remove('show-message');
+    }, 2000);
+    errorMsg.classList.remove('show-message');
+
+    addBooksToLs(newBook);
+  } else {
+    errorMsg.classList.add('show-message');
+    window.setTimeout(() => {
+      errorMsg.classList.remove('show-message');
+    }, 2000);
+    successMsg.classList.remove('show-message');
   }
+});
 
-  addBook(newTitle, newAuthor) {
-    const newBook = {
-      id: timeNow.getTime(),
-      title: newTitle,
-      author: newAuthor,
-    };
+const booksWrapper = document.querySelector('.books-wrapper');
 
-    this.arrBooks.push(newBook);
-  }
+booksWrapper.addEventListener('click', (e) => {
+  removeBook(e.target);
 
-  removeBook(id) {
-    this.arrBooks = this.arrBooks.filter((book) => book.id !== id);
-  }
+  removeBookFromLs(e.target.parentElement.dataset.id);
+});
 
-  saveDataToLocalStorage() {
-    localStorage.setItem(storageKey, JSON.stringify(this.arrBooks));
-  }
+const navList = document.querySelector('.nav-list');
 
-  showBooks() {
-    function addElement(elementType, parent, className) {
-      const element = document.createElement(elementType);
-      element.classList.add(className);
-      parent.appendChild(element);
-      return element;
-    }
+navList.addEventListener('click', (e) => {
+  const navElements = document.querySelectorAll('.active');
+  navElements.forEach((element) => {
+    element.classList.remove('active');
+  });
+  e.target.className += ' active';
+});
 
-    const bookList = document.querySelector(".book-list");
-    this.arrBooks.forEach((book) => {
-      const bookItem = addElement("div", bookList, "book-item");
-      const bookTitle = addElement("div", bookItem, "book-title");
-      bookTitle.innerHTML = `" ${book.title} "    by ${book.author}`;
+const navPills = document.querySelectorAll('.nav-pill');
+const slides = document.querySelectorAll('.display-item');
 
-      const bookRemoveButton = addElement(
-        "button",
-        bookItem,
-        "book-remove-button"
-      );
-      bookRemoveButton.innerHTML = "Remove";
-
-      bookRemoveButton.addEventListener("click", () => {
-        this.removeBook(book.id);
-        this.saveDataToLocalStorage();
-        window.location.reload();
-      });
+navPills.forEach((pill) => {
+  pill.addEventListener('click', (e) => {
+    const tar = e.target.classList;
+    slides.forEach((slide) => {
+      if (slide.classList[1] === tar[1]) {
+        slide.classList.remove('hidden');
+      } else {
+        slide.classList.add('hidden');
+      }
     });
-  }
-
-  loadDataFromLocalStorage() {
-    const dataLoaded = JSON.parse(localStorage.getItem(storageKey));
-    if (dataLoaded == null) {
-      this.arrBooks = [];
-    } else {
-      this.arrBooks = dataLoaded;
-    }
-
-    this.showBooks();
-  }
-}
-
-const awesomeBookShelf = new BookShelf();
-
-currentFormBookAddButton.addEventListener("click", () => {
-  const title = currentFormTitle.value;
-  const author = currentFormAuthor.value;
-  awesomeBookShelf.addBook(title, author);
-  awesomeBookShelf.saveDataToLocalStorage();
+  });
 });
-
-linkList.addEventListener("click", () => {
-  books.classList.remove("hide");
-  form.classList.add("hide");
-  contact.classList.add("hide");
-});
-
-linkAdd.addEventListener("click", () => {
-  books.classList.add("hide");
-  form.classList.remove("hide");
-  contact.classList.add("hide");
-});
-
-linkContact.addEventListener("click", () => {
-  books.classList.add("hide");
-  form.classList.add("hide");
-  contact.classList.remove("hide");
-});
-
-window.onload = () => {
-  books.classList.remove("hide");
-  form.classList.add("hide");
-  contact.classList.add("hide");
-  awesomeBookShelf.loadDataFromLocalStorage();
-  dateTime.innerHTML = timeNow;
-};
