@@ -33,11 +33,11 @@ Name :Anwaar Salam
 - Twitter: [Anwaar154](https://twitter.com/Anwaar154)
 - LinkedIn: [Anwaar12](https://www.linkedin.com/in/anwaar-salam-61a3821b0/)
 
-👤 **Author2**
+👤 **Ghulam Subbhani(Malik)**
 
-Name :Amrit Mishra
-
--GitHub: @Amrit131
+- GitHub: [@githubhandle](https://github.com/gsmalik030)
+- Twitter: [@twitterhandle](https://twitter.com/gsmalik030)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/ghulam-subbhani-4b1281252/)
 
 ## 🤝 Contributing
 
